@@ -1,0 +1,21 @@
+[package]
+name = "fast-grapheme-segmenter-wasm"
+version = "0.1.0"
+edition = "2024"
+description = "WebAssembly C-ABI bindings for fast-grapheme-segmenter"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+# Ergonomic JS/TS bindings via wasm-bindgen,
+# for consumers who prefer the standard tooling over the raw C ABI that is built by default.
+bindgen = ["dep:wasm-bindgen"]
+
+[dependencies]
+fast-grapheme-segmenter = { path = ".." }
+# The CLI's bindgen format is version-locked;
+# this matches the pinned wasm-bindgen-cli. Bump both together.
+wasm-bindgen = { version = "=0.2.127", optional = true }

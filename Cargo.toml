@@ -1,0 +1,29 @@
+[package]
+name = "fast-grapheme-segmenter"
+version = "0.1.0"
+edition = "2024"
+authors = ["Hyeseong Kim <hey@hyeseong.kim>"]
+license = "MIT"
+description = "Fast, lightweight, forward-only Unicode extended grapheme cluster segmentation (UAX #29)"
+repository = "https://github.com/cometkim/fast-grapeme-segmenter"
+homepage = "https://github.com/cometkim/fast-grapeme-segmenter"
+documentation = "https://docs.rs/fast-grapheme-segmenter"
+readme = "README.md"
+keywords = ["unicode", "grapheme", "segmentation", "uax29", "text"]
+categories = ["text-processing", "internationalization", "no-std"]
+
+include = [
+  "LICENSE",
+  "README.md",
+  "Cargo.toml",
+  "src/**/*.rs",
+]
+
+[dev-dependencies]
+criterion = "0.5"
+icu_segmenter = "2"
+unicode-segmentation = "1.12.0"
+
+[[bench]]
+name = "graphemes"
+harness = false

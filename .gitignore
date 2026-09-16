@@ -1,0 +1,8 @@
+/target
+Cargo.lock
+/scripts/ucd/
+
+/wasm/target
+/wasm/grapheme-segmenter.wasm
+/wasm/pkg
+/wasm/pkg-node
