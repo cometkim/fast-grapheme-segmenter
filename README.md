@@ -15,52 +15,52 @@ And it's highly optmized for simple foward segmentation and counting grapheme cl
 
 ## Benchmarks
 
-`cargo bench` compares against [icu_segmenter] 2.3 (icu4x) and [unicode-segmentation] 1.12, criterion, x86_64 Linux.
+`cargo bench` compares against [icu_segmenter] 2.3.0 (icu4x) and [unicode-segmentation] 1.13.3, criterion, x86_64 Linux.
 
 All cases measured against of a ~300-byte samples.
 
 Counting clusters:
 | corpus       | this crate | icu4x 2.3 | unicode-segmentation | vs icu4x | vs unicode-seg |
 |--------------|-----------:|----------:|---------------------:|---------:|---------------:|
-| english      | 0.05 µs   | 1.52 µs   | 3.55 µs              | 31.3×    | 72.9×          |
-| russian      | 0.29 µs   | 1.99 µs   | 3.46 µs              | 6.8×     | 11.9×          |
-| arabic       | 0.24 µs   | 1.44 µs   | 2.76 µs              | 6.1×     | 11.7×          |
-| hindi        | 0.46 µs   | 1.14 µs   | 4.82 µs              | 2.5×     | 10.4×          |
-| japanese     | 0.18 µs   | 1.06 µs   | 1.76 µs              | 6.0×     | 9.9×           |
-| korean       | 0.24 µs   | 1.31 µs   | 2.10 µs              | 5.4×     | 8.6×           |
-| mandarin     | 0.21 µs   | 0.92 µs   | 1.75 µs              | 4.4×     | 8.3×           |
-| emoji        | 0.31 µs   | 0.86 µs   | 2.32 µs              | 2.8×     | 7.5×           |
-| source code  | 0.19 µs   | 2.18 µs   | 5.58 µs              | 11.6×    | 29.8×          |
+| english      | 0.05 µs   | 1.82 µs   | 3.40 µs              | 35.7×    | 66.6×          |
+| russian      | 0.42 µs   | 2.31 µs   | 3.77 µs              | 5.4×     | 8.9×           |
+| arabic       | 0.24 µs   | 1.68 µs   | 2.93 µs              | 7.0×     | 12.3×          |
+| hindi        | 0.47 µs   | 1.27 µs   | 5.01 µs              | 2.7×     | 10.6×          |
+| japanese     | 0.20 µs   | 1.21 µs   | 1.90 µs              | 5.9×     | 9.3×           |
+| korean       | 0.29 µs   | 1.46 µs   | 2.68 µs              | 5.1×     | 9.3×           |
+| mandarin     | 0.21 µs   | 1.16 µs   | 1.66 µs              | 5.5×     | 7.9×           |
+| emoji        | 0.35 µs   | 1.06 µs   | 2.52 µs              | 3.0×     | 7.2×           |
+| source code  | 0.21 µs   | 2.74 µs   | 6.05 µs              | 13.1×    | 28.9×          |
 
 
 Collecting every cluster:
 
 | corpus       | this crate | icu4x 2.3 | unicode-segmentation | vs icu4x | vs unicode-seg |
 |--------------|-----------:|----------:|---------------------:|---------:|---------------:|
-| english      | 1.27 µs   | 2.26 µs   | 4.45 µs              | 1.8×     | 3.5×           |
-| russian      | 1.39 µs   | 2.52 µs   | 5.01 µs              | 1.8×     | 3.6×           |
-| arabic       | 1.05 µs   | 1.86 µs   | 3.44 µs              | 1.8×     | 3.3×           |
-| hindi        | 1.05 µs   | 1.46 µs   | 4.94 µs              | 1.4×     | 4.7×           |
-| japanese     | 0.69 µs   | 1.57 µs   | 2.32 µs              | 2.3×     | 3.3×           |
-| korean       | 0.75 µs   | 1.68 µs   | 2.59 µs              | 2.2×     | 3.4×           |
-| mandarin     | 0.74 µs   | 1.27 µs   | 2.13 µs              | 1.7×     | 2.9×           |
-| emoji        | 0.64 µs   | 1.05 µs   | 2.33 µs              | 1.7×     | 3.7×           |
-| source code  | 2.14 µs   | 3.35 µs   | 6.70 µs              | 1.6×     | 3.1×           |
+| english      | 1.24 µs   | 2.28 µs   | 4.76 µs              | 1.8×     | 3.8×           |
+| russian      | 1.70 µs   | 2.26 µs   | 4.88 µs              | 1.3×     | 2.9×           |
+| arabic       | 0.91 µs   | 1.86 µs   | 3.69 µs              | 2.0×     | 4.0×           |
+| hindi        | 1.04 µs   | 1.33 µs   | 5.29 µs              | 1.3×     | 5.1×           |
+| japanese     | 0.77 µs   | 1.49 µs   | 2.02 µs              | 1.9×     | 2.6×           |
+| korean       | 0.93 µs   | 1.88 µs   | 2.88 µs              | 2.0×     | 3.1×           |
+| mandarin     | 0.84 µs   | 1.34 µs   | 2.28 µs              | 1.6×     | 2.7×           |
+| emoji        | 0.72 µs   | 1.09 µs   | 2.82 µs              | 1.5×     | 3.9×           |
+| source code  | 2.20 µs   | 2.99 µs   | 7.33 µs              | 1.4×     | 3.3×           |
 
 
 Collecting offsets:
 
 | corpus       | this crate | icu4x 2.3 | unicode-segmentation | vs icu4x | vs unicode-seg |
 |--------------|-----------:|----------:|---------------------:|---------:|---------------:|
-| english      | 1.00 µs   | 1.95 µs   | 4.75 µs              | 2.0×     | 4.8×           |
-| russian      | 1.34 µs   | 2.18 µs   | 4.77 µs              | 1.6×     | 3.5×           |
-| arabic       | 0.94 µs   | 1.49 µs   | 3.58 µs              | 1.6×     | 3.8×           |
-| hindi        | 0.96 µs   | 1.26 µs   | 4.68 µs              | 1.3×     | 4.9×           |
-| japanese     | 0.71 µs   | 1.41 µs   | 2.23 µs              | 2.0×     | 3.1×           |
-| korean       | 0.67 µs   | 1.41 µs   | 3.17 µs              | 2.1×     | 4.7×           |
-| mandarin     | 0.60 µs   | 1.25 µs   | 2.24 µs              | 2.1×     | 3.7×           |
-| emoji        | 0.68 µs   | 1.07 µs   | 2.78 µs              | 1.6×     | 4.1×           |
-| source code  | 1.75 µs   | 3.15 µs   | 7.71 µs              | 1.8×     | 4.4×           |
+| english      | 1.04 µs   | 2.24 µs   | 4.94 µs              | 2.1×     | 4.7×           |
+| russian      | 1.58 µs   | 2.66 µs   | 5.55 µs              | 1.7×     | 3.5×           |
+| arabic       | 1.05 µs   | 1.91 µs   | 3.75 µs              | 1.8×     | 3.6×           |
+| hindi        | 0.98 µs   | 1.41 µs   | 5.40 µs              | 1.4×     | 5.5×           |
+| japanese     | 0.71 µs   | 1.43 µs   | 2.35 µs              | 2.0×     | 3.3×           |
+| korean       | 0.83 µs   | 1.70 µs   | 3.07 µs              | 2.1×     | 3.7×           |
+| mandarin     | 0.73 µs   | 1.45 µs   | 2.05 µs              | 2.0×     | 2.8×           |
+| emoji        | 0.65 µs   | 1.26 µs   | 2.88 µs              | 1.9×     | 4.4×           |
+| source code  | 1.84 µs   | 3.12 µs   | 6.73 µs              | 1.7×     | 3.7×           |
 
 
 ## Conformance

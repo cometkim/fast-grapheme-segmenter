@@ -20,9 +20,9 @@ include = [
 ]
 
 [dev-dependencies]
-criterion = "0.5"
-icu_segmenter = "2"
-unicode-segmentation = "1.12.0"
+criterion = "0.8"
+icu_segmenter = "2.3.0"
+unicode-segmentation = "1.13.3"
 
 [[bench]]
 name = "graphemes"
