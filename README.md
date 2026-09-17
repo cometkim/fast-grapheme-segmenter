@@ -22,47 +22,47 @@ And it's highly optmized for simple foward segmentation and counting grapheme cl
 All cases measured against of a ~300-byte samples.
 
 Counting clusters:
-| corpus       | this crate | icu4x 2.3 | unicode-segmentation | vs icu4x | vs unicode-seg |
-|--------------|-----------:|----------:|---------------------:|---------:|---------------:|
-| english      | 0.05 µs   | 1.82 µs   | 3.40 µs              | 35.7×    | 66.6×          |
-| russian      | 0.42 µs   | 2.31 µs   | 3.77 µs              | 5.4×     | 8.9×           |
-| arabic       | 0.24 µs   | 1.68 µs   | 2.93 µs              | 7.0×     | 12.3×          |
-| hindi        | 0.47 µs   | 1.27 µs   | 5.01 µs              | 2.7×     | 10.6×          |
-| japanese     | 0.20 µs   | 1.21 µs   | 1.90 µs              | 5.9×     | 9.3×           |
-| korean       | 0.29 µs   | 1.46 µs   | 2.68 µs              | 5.1×     | 9.3×           |
-| mandarin     | 0.21 µs   | 1.16 µs   | 1.66 µs              | 5.5×     | 7.9×           |
-| emoji        | 0.35 µs   | 1.06 µs   | 2.52 µs              | 3.0×     | 7.2×           |
-| source code  | 0.21 µs   | 2.74 µs   | 6.05 µs              | 13.1×    | 28.9×          |
+| corpus       | this crate | icu4x     | unicode-seg  | vs icu4x | vs unicode-seg |
+|--------------|-----------:|----------:|-------------:|---------:|---------------:|
+| english      | 0.05 µs    | 1.82 µs   | 3.40 µs      | 35.7×    | 66.6×          |
+| russian      | 0.42 µs    | 2.31 µs   | 3.77 µs      | 5.4×     | 8.9×           |
+| arabic       | 0.24 µs    | 1.68 µs   | 2.93 µs      | 7.0×     | 12.3×          |
+| hindi        | 0.47 µs    | 1.27 µs   | 5.01 µs      | 2.7×     | 10.6×          |
+| japanese     | 0.20 µs    | 1.21 µs   | 1.90 µs      | 5.9×     | 9.3×           |
+| korean       | 0.29 µs    | 1.46 µs   | 2.68 µs      | 5.1×     | 9.3×           |
+| mandarin     | 0.21 µs    | 1.16 µs   | 1.66 µs      | 5.5×     | 7.9×           |
+| emoji        | 0.35 µs    | 1.06 µs   | 2.52 µs      | 3.0×     | 7.2×           |
+| source code  | 0.21 µs    | 2.74 µs   | 6.05 µs      | 13.1×    | 28.9×          |
 
 
 Collecting every cluster:
 
-| corpus       | this crate | icu4x 2.3 | unicode-segmentation | vs icu4x | vs unicode-seg |
-|--------------|-----------:|----------:|---------------------:|---------:|---------------:|
-| english      | 1.24 µs   | 2.28 µs   | 4.76 µs              | 1.8×     | 3.8×           |
-| russian      | 1.70 µs   | 2.26 µs   | 4.88 µs              | 1.3×     | 2.9×           |
-| arabic       | 0.91 µs   | 1.86 µs   | 3.69 µs              | 2.0×     | 4.0×           |
-| hindi        | 1.04 µs   | 1.33 µs   | 5.29 µs              | 1.3×     | 5.1×           |
-| japanese     | 0.77 µs   | 1.49 µs   | 2.02 µs              | 1.9×     | 2.6×           |
-| korean       | 0.93 µs   | 1.88 µs   | 2.88 µs              | 2.0×     | 3.1×           |
-| mandarin     | 0.84 µs   | 1.34 µs   | 2.28 µs              | 1.6×     | 2.7×           |
-| emoji        | 0.72 µs   | 1.09 µs   | 2.82 µs              | 1.5×     | 3.9×           |
-| source code  | 2.20 µs   | 2.99 µs   | 7.33 µs              | 1.4×     | 3.3×           |
+| corpus       | this crate | icu4x     | unicode-seg | vs icu4x | vs unicode-seg |
+|--------------|-----------:|----------:|------------:|---------:|---------------:|
+| english      | 1.24 µs    | 2.28 µs   | 4.76 µs     | 1.8×     | 3.8×           |
+| russian      | 1.70 µs    | 2.26 µs   | 4.88 µs     | 1.3×     | 2.9×           |
+| arabic       | 0.91 µs    | 1.86 µs   | 3.69 µs     | 2.0×     | 4.0×           |
+| hindi        | 1.04 µs    | 1.33 µs   | 5.29 µs     | 1.3×     | 5.1×           |
+| japanese     | 0.77 µs    | 1.49 µs   | 2.02 µs     | 1.9×     | 2.6×           |
+| korean       | 0.93 µs    | 1.88 µs   | 2.88 µs     | 2.0×     | 3.1×           |
+| mandarin     | 0.84 µs    | 1.34 µs   | 2.28 µs     | 1.6×     | 2.7×           |
+| emoji        | 0.72 µs    | 1.09 µs   | 2.82 µs     | 1.5×     | 3.9×           |
+| source code  | 2.20 µs    | 2.99 µs   | 7.33 µs     | 1.4×     | 3.3×           |
 
 
 Collecting offsets:
 
-| corpus       | this crate | icu4x 2.3 | unicode-segmentation | vs icu4x | vs unicode-seg |
-|--------------|-----------:|----------:|---------------------:|---------:|---------------:|
-| english      | 1.04 µs   | 2.24 µs   | 4.94 µs              | 2.1×     | 4.7×           |
-| russian      | 1.58 µs   | 2.66 µs   | 5.55 µs              | 1.7×     | 3.5×           |
-| arabic       | 1.05 µs   | 1.91 µs   | 3.75 µs              | 1.8×     | 3.6×           |
-| hindi        | 0.98 µs   | 1.41 µs   | 5.40 µs              | 1.4×     | 5.5×           |
-| japanese     | 0.71 µs   | 1.43 µs   | 2.35 µs              | 2.0×     | 3.3×           |
-| korean       | 0.83 µs   | 1.70 µs   | 3.07 µs              | 2.1×     | 3.7×           |
-| mandarin     | 0.73 µs   | 1.45 µs   | 2.05 µs              | 2.0×     | 2.8×           |
-| emoji        | 0.65 µs   | 1.26 µs   | 2.88 µs              | 1.9×     | 4.4×           |
-| source code  | 1.84 µs   | 3.12 µs   | 6.73 µs              | 1.7×     | 3.7×           |
+| corpus       | this crate | icu4x     | unicode-seg | vs icu4x | vs unicode-seg |
+|--------------|-----------:|----------:|------------:|---------:|---------------:|
+| english      | 1.04 µs    | 2.24 µs   | 4.94 µs     | 2.1×     | 4.7×           |
+| russian      | 1.58 µs    | 2.66 µs   | 5.55 µs     | 1.7×     | 3.5×           |
+| arabic       | 1.05 µs    | 1.91 µs   | 3.75 µs     | 1.8×     | 3.6×           |
+| hindi        | 0.98 µs    | 1.41 µs   | 5.40 µs     | 1.4×     | 5.5×           |
+| japanese     | 0.71 µs    | 1.43 µs   | 2.35 µs     | 2.0×     | 3.3×           |
+| korean       | 0.83 µs    | 1.70 µs   | 3.07 µs     | 2.1×     | 3.7×           |
+| mandarin     | 0.73 µs    | 1.45 µs   | 2.05 µs     | 2.0×     | 2.8×           |
+| emoji        | 0.65 µs    | 1.26 µs   | 2.88 µs     | 1.9×     | 4.4×           |
+| source code  | 1.84 µs    | 3.12 µs   | 6.73 µs     | 1.7×     | 3.7×           |
 
 
 ## Conformance
