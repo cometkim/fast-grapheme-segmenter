@@ -774,7 +774,9 @@ struct Driver<'a> {
     cat_before: u8,
     /// Packed rule state for everything consumed so far.
     state: u8,
-    /// Whether the string looked printable-ASCII-heavy enough that the one-byte boundary shortcut below pays for itself.
+    /// Whether the one-byte shortcut below is armed. 
+    /// Arms itself when the state machine lands on the head of a printable-ASCII pair, disarms when the run ends,
+    /// so construction stays O(1): callers that build an iterator to extract a single cluster never pay a probe scan.
     bulk: bool,
 }
 
@@ -786,7 +788,7 @@ impl<'a> Driver<'a> {
             offset: 0,
             cat_before: CAT_ANY,
             state: ALWAYS,
-            bulk: ascii_heavy(s.as_bytes()),
+            bulk: false,
         };
         // Consume the first codepoint; nothing can break before it.
         if let Some((_, ch)) = driver.iter.next() {
@@ -799,13 +801,15 @@ impl<'a> Driver<'a> {
     /// Advance to the next boundary and return its offset.
     #[inline]
     fn next_boundary(&mut self) -> usize {
-        // A printable ASCII byte is always followed by a boundary when
-        // the next byte is printable ASCII too (GB999), 
+        // A printable ASCII byte is always followed by
+        // a boundary when the next byte is printable ASCII too (GB999),
         // and the byte consumed leaves (Any, ALWAYS): the cluster starting at `offset` is a single byte,
         // and the state machine only ever sees the edges of such a run.
         // `iter` sits right behind the char at `offset`, which the shortcut just proved to be one byte.
-        // Gated on the head sample for the same reason as the counting paths: on text that mixes scripts,
-        // this branch mispredicts once per cluster and costs more than the state machine it skips.
+        //
+        // Arming is local, the boundary return below tests the head of the next cluster,
+        // so on text that mixes scripts the branch follows the actual runs instead of a construction-time sample,
+        // and mispredicts only at run edges.
         if self.bulk
             && self.offset + 1 < self.string.len()
             && is_printable_ascii(self.string.as_bytes()[self.offset])
@@ -833,6 +837,12 @@ impl<'a> Driver<'a> {
             self.cat_before = cat_after;
             if boundary {
                 self.offset = i;
+                // Arm the shortcut when the next cluster's head starts a printable-ASCII pair, disarm when it doesn't.
+                // The head is `ch`, already decoded: its printability is a register test,
+                // so arming costs one guarded byte load per state-machine boundary instead of a sample scan at construction.
+                self.bulk = (ch as u32).wrapping_sub(0x20) < 0x5f
+                    && i + 1 < self.string.len()
+                    && is_printable_ascii(self.string.as_bytes()[i + 1]);
                 return i;
             }
         }
