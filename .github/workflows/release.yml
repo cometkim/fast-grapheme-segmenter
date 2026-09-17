@@ -30,7 +30,7 @@ jobs:
       - run: yarn install
 
       - id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           version: yarn changeset:version
           publish: yarn changeset:publish

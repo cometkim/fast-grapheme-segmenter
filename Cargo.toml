@@ -1,6 +1,6 @@
 [package]
 name = "fast-grapheme-segmenter"
-version = "0.0.0"
+version = "0.1.0"
 edition = "2024"
 authors = ["Hyeseong Kim <hey@hyeseong.kim>"]
 license = "MIT"
