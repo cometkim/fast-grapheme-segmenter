@@ -1,6 +1,6 @@
 # fast-grapheme-segmenter
-![Crates.io Version](https://img.shields.io/crates/v/fast-grapheme-segmenter)
- [![LICENSE - MIT](https://img.shields.io/github/license/cometkim/fast-grapheme-segmenter)](#license)
+[![Crates.io Version](https://img.shields.io/crates/v/fast-grapheme-segmenter)](https://crates.io/crates/fast-grapheme-segmenter)
+[![LICENSE - MIT](https://img.shields.io/github/license/cometkim/fast-grapheme-segmenter)](#license)
 
 Fast, lightweight, **forward-only** segmentation of text into Unicode **extended grapheme clusters** ([UAX #29](https://www.unicode.org/reports/tr29/)).
 
