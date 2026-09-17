@@ -6,7 +6,8 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "cometkim/fast-grapheme-segmenter"
+      "repo": "cometkim/fast-grapheme-segmenter",
+      "disableThanks": true
     }
   ],
   "commit": false,
