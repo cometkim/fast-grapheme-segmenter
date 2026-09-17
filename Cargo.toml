@@ -13,10 +13,10 @@ keywords = ["unicode", "grapheme", "segmentation", "uax29", "text"]
 categories = ["text-processing", "internationalization", "no-std"]
 
 include = [
-  "LICENSE",
-  "README.md",
-  "Cargo.toml",
-  "src/**/*.rs",
+  "/LICENSE",
+  "/README.md",
+  "/Cargo.toml",
+  "/src/**/*.rs",
 ]
 
 [dev-dependencies]
