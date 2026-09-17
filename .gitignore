@@ -6,3 +6,13 @@ Cargo.lock
 /wasm/grapheme-segmenter.wasm
 /wasm/pkg
 /wasm/pkg-node
+
+node_modules/
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
