@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 
-// Mirrors the npm versions that `changeset version` just wrote onto the Cargo
-// manifests of the crates published alongside them.
+// Mirrors the version that `changeset version` just wrote onto the root
+// package.json into the Cargo manifests of the crates it versions.
 //
-// Changesets has no notion of Cargo, but it does version private packages, so
-// each publishable crate carries a private package.json holding the version
-// changesets owns. This script copies that version into `[package] version` and
-// refreshes Cargo.lock, keeping a release a single commit across both registries.
+// Changesets has no notion of Cargo, but it does version private packages,
+// so the version changesets owns lives in a package.json and this script
+// copies it into the `[package] version` of the matching Cargo.toml.
 //
-// Crates marked `publish = false` (rkyv-example, conformance) are skipped: they
-// exist only inside the workspace and their versions are meaningless.
+// The published crate is the repository root itself — its pairing is the
+// root package.json with the root Cargo.toml. npm workspaces, should any
+// appear later, follow the same pairing per directory; a directory without
+// a package.json is not version-tracked and is skipped.
+//
+// Crates marked `publish = false` (wasm) are skipped: they exist only
+// inside the repository and their versions are meaningless.
 
 import assert from 'node:assert';
 import { spawnSync } from 'node:child_process';
@@ -73,9 +77,11 @@ function crateName(manifest) {
     : undefined;
 }
 
-async function workspaceDirs() {
+async function versionedCrateDirs() {
   const { workspaces = [] } = await readJson(path.join(rootDir, 'package.json'));
-  const dirs = new Set();
+  // The root crate pairs with the root package.json itself; workspace
+  // entries, when they exist, pair per directory the same way.
+  const dirs = new Set(['.']);
   for (const pattern of workspaces) {
     // Literal entries (the common case here) still round-trip through glob.
     for await (const match of fs.glob(pattern, { cwd: rootDir })) {
@@ -87,13 +93,14 @@ async function workspaceDirs() {
 
 const updated = [];
 
-for (const dir of await workspaceDirs()) {
+for (const dir of await versionedCrateDirs()) {
   const manifestPath = path.join(rootDir, dir, 'Cargo.toml');
-  if (!existsSync(manifestPath)) {
+  const pkgPath = path.join(rootDir, dir, 'package.json');
+  if (!existsSync(manifestPath) || !existsSync(pkgPath)) {
     continue;
   }
 
-  const pkg = await readJson(path.join(rootDir, dir, 'package.json'));
+  const pkg = await readJson(pkgPath);
   const manifest = await fs.readFile(manifestPath, 'utf8');
 
   if (!crateIsPublishable(manifest)) {
