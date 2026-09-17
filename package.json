@@ -3,6 +3,10 @@
   "type": "module",
   "private": true,
   "version": "0.0.0",
+  "scripts": {
+    "changeset:version": "changeset version && node scripts/sync-cargo-version.mjs",
+    "changeset:publish": "yarn workspaces foreach --all --no-private npm publish --tolerate-republish && changeset tag"
+  },
   "devDependencies": {
     "@changesets/cli": "^3.0.3"
   },
