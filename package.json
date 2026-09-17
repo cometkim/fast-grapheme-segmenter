@@ -2,7 +2,7 @@
   "name": "fast-grapheme-segmenter",
   "type": "module",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "changeset:version": "changeset version && node scripts/sync-cargo-version.mjs",
     "changeset:publish": "yarn workspaces foreach --all --no-private npm publish --tolerate-republish && changeset tag"
