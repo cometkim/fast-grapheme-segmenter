@@ -32,8 +32,8 @@ jobs:
       - id: changesets
         uses: changesets/action@v2
         with:
-          version: yarn changeset:version
-          publish: yarn changeset:publish
+          version-script: yarn changeset:version
+          publish-script: yarn changeset:publish
 
       # Short-lived token over OIDC; the trusted publisher for this repo and
       # workflow has to be registered on crates.io first.
